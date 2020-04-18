@@ -16,14 +16,14 @@
  */
 
 #pragma once
-#include <event.h>
+#include <buttonevent.h>
 #include <timer.h>
 #include <trigger.h>
 
 class ButtonAutoTrigger : public Trigger
 {
 public:
-	ButtonAutoTrigger(Event* event, const events::Button button1, const events::Button button2,
+	ButtonAutoTrigger(ButtonEvent* event, const uint32_t button1, const uint32_t button2,
 	                  const unsigned int first_interval = 200, const unsigned int interval = 150);
 	// trigger public interface
 
@@ -47,13 +47,12 @@ protected:
 	bool process(const unsigned long& time) override;
 
 private:
-
 	Timer timer_;
 
-	Event* event_;
+	ButtonEvent* event_;
 
-	const events::Button button1_;
-	const events::Button button2_;
+	const uint32_t button1_;
+	const uint32_t button2_;
 
 	bool activated_ = true;
 	Direction dir_;

@@ -17,18 +17,17 @@
 
 #include <buttonautotrigger.h>
 
-using namespace events;
+using namespace event_handling;
 
-ButtonAutoTrigger::ButtonAutoTrigger(Event* event, const Button button1, const Button button2,
+ButtonAutoTrigger::ButtonAutoTrigger(ButtonEvent* event, const uint32_t button1, const uint32_t button2,
                                      const unsigned int first_interval, const unsigned int interval)
   : event_(event)
   , button1_(button1)
-  , button2_(button2)	
+  , button2_(button2)
   , activated_(true)
   , dir_(NO_BTN)
   , first_interval_(first_interval)
-  , interval_(interval)
-   {}
+  , interval_(interval) {}
 
 bool ButtonAutoTrigger::process(const unsigned long& time) {
 	if (!activated_) {
@@ -40,7 +39,7 @@ bool ButtonAutoTrigger::process(const unsigned long& time) {
 	if (event_->buttonChanged(button1_)) {
 		if (event_->buttonState(button1_)) {
 			if (!event_->buttonState(button2_)) {
-				event_->button_changes_.setFlag(button1_);
+				event_->changes_.setFlag(button1_);
 				triggered_ = true;
 				onTriggered();
 				timer_.setInterval(first_interval_);
@@ -63,7 +62,7 @@ bool ButtonAutoTrigger::process(const unsigned long& time) {
 	else if (event_->buttonChanged(button2_)) {
 		if (event_->buttonState(button2_)) {
 			if (!event_->buttonState(button1_)) {
-				event_->button_changes_.setFlag(button2_);
+				event_->changes_.setFlag(button2_);
 				triggered_ = true;
 				onTriggered();
 				timer_.setInterval(first_interval_);
@@ -86,7 +85,7 @@ bool ButtonAutoTrigger::process(const unsigned long& time) {
 	// timer	// timer
 	else if (timer_.process(time)) {
 		timer_.clearTriggered();
-		event_->button_changes_.setFlag((dir_ == BTN_1 ? button1_ : button2_));
+		event_->changes_.setFlag((dir_ == BTN_1 ? button1_ : button2_));
 		triggered_ = true;
 		onTriggered();
 		timer_.setInterval(interval_);
