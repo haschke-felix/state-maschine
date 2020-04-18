@@ -1,0 +1,40 @@
+{
+    "name" : "state-maschine", 
+    "version" : "2.0.0",
+    "description" : "AVR optimized library providing ability to build up ah event-based frame",
+    "repository" :
+    {
+        "type" : "git",
+        "url" : "https://github.com/haschke-felix/state-maschine.git"
+    },
+    "authors" :
+    [
+      {
+          "name" : "Felix Haschke",
+          "email" : "haschke.felix@gmail.com",
+          "url" : "tek2you.de",
+          "maintainer" : true
+      }
+    ],
+    "dependencies": [
+        {
+          "name": "avr-utils",
+          "authors": "Felix Haschke"
+        }
+      ],
+    "platforms": "*",
+    "examples": [
+      "[Ee]xamples/*.c",
+      "[Ee]xamples/*.cpp",
+      "[Ee]xamples/*.ino",
+      "[Ee]xamples/*.pde",
+      "[Ee]xamples/*/*.c",
+      "[Ee]xamples/*/*.cpp",
+      "[Ee]xamples/*/*.ino",
+      "[Ee]xamples/*/*.pde",
+      "[Ee]xamples/*/*/*.c",
+      "[Ee]xamples/*/*/*.cpp",
+      "[Ee]xamples/*/*/*.ino",
+      "[Ee]xamples/*/*/*.pde"
+  ]
+}
