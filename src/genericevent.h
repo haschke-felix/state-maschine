@@ -36,7 +36,7 @@ public:
 	bool triggered() const { return triggered_; }
 
 	inline const uint8_t onEntry() const { return entry_mode_; }
-	inline void setOnEntry(uint8_t entry_mode = event_handling::ForwardEntry) {
+	inline void setEntry(uint8_t entry_mode = event_handling::ForwardEntry) {
 		removeAllTriggers();
 		entry_mode_ = entry_mode;
 	}
