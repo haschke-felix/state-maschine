@@ -20,11 +20,15 @@
 
 using namespace events;
 
-Event::Event() : trigger_mode_(), triggers_(), triggered_(false), button_states_(), button_changes_(), debounce_timers_{0,0,0,0,0}, entry_(NotOnEntry) {
+Event::Event() :  trigger_mode_(), button_states_(), button_changes_(), debounce_timers_{0,0,0,0,0}, entry_(NotOnEntry) {
 	DDRC = 0b0000;
 	PORTC = 0b1111;
 	DDRB = 0b10;
 	PORTB = 0b10;
+}
+
+Event::~Event(){
+
 }
 
 bool readButton(Button b) {
@@ -56,50 +60,15 @@ void Event::checkButtons() {
 }
 
 void Event::clear() {
+	GenericEvent::clear();
 	button_changes_.clear();
-
-	for (Trigger* t : triggers_) {
-		t->clearTriggered();
-	}
-
 	entry_ = NotOnEntry;
-	triggered_ = false;
 }
 
 bool Event::process() {
-	processTriggers();
+	GenericEvent::process();
 	return ((trigger_mode_ & ProcessEveryCycle) ||
 	        ((trigger_mode_ & ProcessPinChanges) && (button_changes_ & CONTROL_BUTTON)) ||
 	        ((trigger_mode_ & ProcessTriggers) && triggered_) ||
 	        ((trigger_mode_ & ProcessStop) && buttonChanged(BUTTON_STOP)));
-}
-
-bool Event::processTriggers() {
-	unsigned long time = millis();
-	for (Trigger* t : triggers_) {
-		if (t->process(time)) {
-			triggered_ = true;
-		}
-	}
-	return triggered_;
-}
-
-void Event::addTrigger(Trigger* trigger) {
-	triggers_.append(trigger);
-}
-
-Trigger* Event::trigger(const byte index) {
-	return triggers_.itemAt((uint16_t)index);
-}
-
-void Event::removeTrigger(const byte index) {
-	delete triggers_.itemAt((uint16_t)index);
-	triggers_.remove(index);
-}
-
-void Event::removeAllTriggers() {
-	for (Trigger* t : triggers_) {
-		delete t;
-	}
-	triggers_.removeAll();
 }

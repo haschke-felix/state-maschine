@@ -18,9 +18,8 @@
 
 #pragma once
 #include <avr.h>
-#include <list.h>
-#include <timer.h>
 #include <flags.h>
+#include <genericevent.h>
 
 namespace events
 {
@@ -60,13 +59,14 @@ typedef Flags<TriggerFlag> TriggerModes;
 class ButtonAutoTrigger;
 class Game;
 
-class Event
+class Event : public GenericEvent
 {
 public:
 	friend class ButtonAutoTrigger;
 	friend class Game;
 
 	Event();
+	~Event();
 
 	// button methods
 	void processDebounce();
@@ -85,28 +85,18 @@ public:
 	}
 
 	// trigger structure methods
-	bool process();
-	void addTrigger(Trigger *trigger);
-	Trigger *trigger(const byte index);
-	void removeTrigger(const byte index);
-	void removeAllTriggers();
-	void clear();
+	bool process() override;
+	void clear() override;
 
 	events::Buttons buttonChanges() const { return button_changes_; }
 
 	events::TriggerModes &triggerModes() { return trigger_mode_; }
 
-	bool triggered() const { return triggered_; }
 
 protected:
 	// trigger modes
 	events::TriggerModes trigger_mode_;
 
-	// list of triggers
-	List<Trigger *> triggers_;
-	bool processTriggers();
-	// store trigger event
-	bool triggered_;
 
 	// button states
 	events::Buttons button_states_;
