@@ -1,25 +1,22 @@
 #include <genericevent.h>
 
-GenericEvent::GenericEvent() : triggers_(), triggered_(false)
-{
+using namespace event_handling;
 
-}
+GenericEvent::GenericEvent() : triggers_(), triggered_(false), entry_mode_(ForwardEntry) {}
 
-GenericEvent::~GenericEvent()
-{
-
-}
+GenericEvent::~GenericEvent() {}
 
 void GenericEvent::clear() {
 	for (Trigger* t : triggers_) {
 		t->clearTriggered();
 	}
 	triggered_ = false;
+	entry_mode_ = NotOnEntry;
 }
 
 bool GenericEvent::process() {
 	processTriggers();
-    return triggered_;
+	return (process_flags_ & ProcessEveryCycle) || ((process_flags_ & ProcessTriggers) && triggered_);
 }
 
 bool GenericEvent::processTriggers() {
