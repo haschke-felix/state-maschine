@@ -11,7 +11,7 @@ enum EntryMode
 	BackwardEntry,
 	UserEntry,
 };
-enum TriggerFlag
+enum TriggerFlag : uint8_t
 {
 	ProcessEveryCycle = _BV(0),
 	ProcessPinChanges = _BV(1),
