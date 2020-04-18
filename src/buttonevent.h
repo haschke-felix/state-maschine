@@ -19,6 +19,6 @@ public:
 	virtual bool process() override;
 
 protected:
-	IntFlags<uint32_t> changes_;
 	IntFlags<uint32_t> states_;
+	IntFlags<uint32_t> changes_;
 };
