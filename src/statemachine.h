@@ -37,6 +37,11 @@ public:
 		current_state = state;
 	}
 
+	inline State currentState() const
+	{
+		return current_state;
+	}
+
 private:
 	State current_state;
 };
