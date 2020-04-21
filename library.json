@@ -1,5 +1,5 @@
 {
-  "name": "state-maschine",
+  "name": "state-machine",
   "keywords": "state, event, event-based, avr, gcc, atmel, microchip, tek2you",
   "description": "AVR optimized library providing ability to build up ah event-based frame",
   "repository": 
