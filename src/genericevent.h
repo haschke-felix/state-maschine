@@ -33,7 +33,6 @@ public:
 	Trigger* trigger(const byte index);
 	void removeTrigger(const byte index);
 	void removeAllTriggers();
-	bool triggered() const { return triggered_; }
 
 	inline const uint8_t onEntry() const { return entry_mode_; }
 	inline void setEntry(uint8_t entry_mode = event_handling::ForwardEntry) {
