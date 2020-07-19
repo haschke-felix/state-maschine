@@ -6,7 +6,6 @@ class ButtonAutoTrigger;
 class ButtonEvent : public GenericEvent
 {
 public:
-	friend class ButtonAutoTrigger;
 	ButtonEvent();
 	~ButtonEvent();
 
@@ -18,7 +17,6 @@ public:
 	virtual void clear() override;
 	virtual bool process() override;
 
-protected:
 	IntFlags<uint32_t> states_;
 	IntFlags<uint32_t> changes_;
 };

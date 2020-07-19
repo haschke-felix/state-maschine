@@ -43,10 +43,8 @@ public:
 	void setFirstInterval(const unsigned int interval) { first_interval_ = interval; }
 
 	// Trigger interface
-protected:
 	bool process(const unsigned long& time) override;
-
-private:
+protected:
 	Timer timer_;
 
 	ButtonEvent* event_;
