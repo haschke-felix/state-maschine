@@ -28,7 +28,6 @@ ButtonAutoTrigger::ButtonAutoTrigger(ButtonEvent* event, const uint32_t button1,
   , dir_(NO_BTN)
   , first_interval_(first_interval)
   , interval_(interval) {}
-
 bool ButtonAutoTrigger::process(const unsigned long& time) {
 	if (!activated_) {
 		timer_.clearTriggered();
@@ -82,7 +81,7 @@ bool ButtonAutoTrigger::process(const unsigned long& time) {
 		}
 	}
 
-	// timer	// timer
+	// timer
 	else if (timer_.process(time)) {
 		timer_.clearTriggered();
 		event_->changes_.setFlag((dir_ == BTN_1 ? button1_ : button2_));
